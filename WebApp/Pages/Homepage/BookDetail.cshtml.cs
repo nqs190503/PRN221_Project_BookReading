@@ -13,10 +13,12 @@ namespace WebApp.Pages.Homepage
         {
             this.context = context;
         }
+        public List<Category> Categories { get; set; } = new List<Category>();
         public Book Book { get; set; } = default!;
         public void OnGet(int id)
         {
-            var exist = context.Books.Find(id);
+            Categories = context.Categories.ToList();
+            var exist = context.Books.Include(x=>x.Chapters).FirstOrDefault(x=>x.BookId == id);
             if (exist != null)
             {
                 if (exist.Img != null && exist.Img.Contains("/images"))
