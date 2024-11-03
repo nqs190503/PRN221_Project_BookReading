@@ -2,7 +2,7 @@
 @model WebApp.Pages.Shared.HeaderModel
 @{
 } *@
-
+@using Microsoft.AspNetCore.Http
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -58,7 +58,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-custom">
                                 @{
-                                    foreach(var cate in Model.Categories)
+                                    foreach (var cate in Model.Categories)
                                     {
                                         <li>
                                             <a class="dropdown-item" href="category.html">
@@ -101,6 +101,32 @@
                                 </li>
                             </ul>
                         </li>
+                        @{
+
+                            var userId = @Model.UserId;
+
+                        }
+                        @{
+                            if (!string.IsNullOrEmpty(userId))
+                            {
+                                var id = int.Parse(userId);
+                                <li class="nav-item-a" style="margin-left:190px">
+                                    <a class="nav-link" href="logout">Logout</a>
+                                </li>
+                                <li style="margin-left: 1cm" class="nav-item-a">
+                                    <a class="nav-link" asp-page="/Profile/Index" asp-route-id="@id">
+                                        Thông tin cá nhân
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item-a" style="margin-left:190px">
+                                    <a class="nav-link" asp-page="/Login/Index">Login</a>
+                                </li>
+                            }
+                        }
+
                     </ul>
 
                     <div class="form-check form-switch me-3 d-flex align-items-center">
@@ -147,6 +173,8 @@
 
                         </button>
                     </form>
+
+
                 </div>
             </div>
         </nav>

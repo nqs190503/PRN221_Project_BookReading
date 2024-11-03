@@ -14,10 +14,12 @@ namespace WebApp.Pages.Homepage
             this.context = context;
         }
         public List<Category> Categories { get; set; } = new List<Category>();
+        public string? UserId { get; set; } = default!;
         public Book Book { get; set; } = default!;
         public void OnGet(int id)
         {
             Categories = context.Categories.ToList();
+            UserId = HttpContext.Session.GetString("userId");
             var exist = context.Books.Include(x=>x.Chapters).FirstOrDefault(x=>x.BookId == id);
             if (exist != null)
             {

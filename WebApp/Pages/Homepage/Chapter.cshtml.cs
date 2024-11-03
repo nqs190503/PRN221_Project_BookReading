@@ -13,11 +13,13 @@ namespace WebApp.Pages.Homepage
             this.context = context;
         }
         public List<Category> Categories { get; set; } = new List<Category>();
+        public string? UserId { get; set; } = default!;
         public Chapter Chapter { get; set; } = default!;
         public Book Book { get; set; } = default!;
         public void OnGet(int id, int bookId)
         {
             Categories = context.Categories.ToList();
+            UserId = HttpContext.Session.GetString("userId");
             var existBook = context.Books.FirstOrDefault(x => x.BookId == bookId);
             if (existBook != null)
             {

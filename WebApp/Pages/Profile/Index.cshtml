@@ -1,0 +1,272 @@
+﻿@page
+@model WebApp.Pages.Profile.IndexModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="~/css/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/css/vendor/css/style.css" rel="stylesheet">
+    <style>
+        .profile .profile-card img {
+            max-width: 300px;
+        }
+
+        .profile .profile-edit img {
+            max-width: 300px;
+        }
+    </style>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/jumbotron-narrow.css" rel="stylesheet">
+    <script src="~/js/jquery-1.11.3.min.js"></script>
+</head>
+
+<body>
+    <jsp:include page="Menu.jsp"></jsp:include>
+    <!-- ======= Sidebar ======= -->
+    <aside style="margin-top: 80px" id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <li class="nav-item">
+                <span><button><a href="#">Quay về trang chủ</a></button></span>
+            </li><!-- End Dashboard Nav -->
+            <li class="nav-item">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link " href="profile">
+                    <i class="bi bi-person"></i>
+                    <span>Profile</span>
+                </a>
+            </li><!-- End Profile Page Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="postbook">
+                    <i class="bi bi-envelope"></i>
+                    <span>Ðăng truyện</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="mylist?creator=${user.userID}">
+                    <i class="bi bi-envelope"></i>
+                    <span>Danh sách truyện</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="managerchapter?creator=${user.userID}">
+                    <i class="bi bi-envelope"></i>
+                    <span>Quản lý chapter</span>
+                </a>
+            </li>
+    </aside><!-- End Sidebar-->
+
+    <main style="margin-top: 4px" id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Profile</h1>
+        </div><!-- End Page Title -->
+
+        <section class="section profile">
+            <div class="row">
+                <div class="col-xl-4">
+
+                    <div class="card">
+                        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                            <img src="" width="290px" height="200px">
+                            <h6 style="margin-top: 10px" class="f-w-600">Username</h6>
+                            <p>Role</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xl-8">
+
+                    <div class="card">
+                        <div class="card-body pt-3">
+                            <!-- Bordered Tabs -->
+                            <ul class="nav nav-tabs nav-tabs-bordered">
+
+                                <li class="nav-item">
+                                    <button class="nav-link active" data-bs-toggle="tab"
+                                            data-bs-target="#profile-overview">
+                                        Thông tin cá nhân
+                                    </button>
+                                </li>
+
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                                </li>
+
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">
+                                        Đổi mật khẩu
+                                    </button>
+                                </li>
+                            </ul>
+                            <div class="tab-content pt-2">
+                                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Email</div>
+                                        <div class="col-lg-9 col-md-8">@Model.UserModel.Email</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Địa chỉ</div>
+                                        <div class="col-lg-9 col-md-8">@Model.UserModel.Address</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Số điện thoại</div>
+                                        <div class="col-lg-9 col-md-8">@Model.UserModel.Phone</div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                                    <!-- Profile Edit Form -->
+                                    <form method="post" enctype="multipart/form-data">
+                                        <!-- Avatar -->
+                                        <div class="row mb-3">
+                                            <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Avatar</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <img src="" alt="Profile" width="300" height="200"><br>
+                                                <input style="margin-top: 10px; margin-bottom: 10px" name="file" type="file" class="form-control" id="Email" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3" style="display: none">
+                                            <label for="Email" class="col-md-4 col-lg-3 col-form-label">Id</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="userId" type="text" class="form-control" asp-for="@Model.UserModel.UserId" id="Email" readonly="">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="email" type="email" class="form-control" asp-for="@Model.UserModel.Email" id="Email">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="Email" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="address" type="text" asp-for="@Model.UserModel.Address" class="form-control" id="Email">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="phone" asp-for="@Model.UserModel.Phone" type="text" class="form-control" id="phone" pattern="[0-9]{9,11}" title="Vui lòng nhập số điện thoại hợp lệ (từ 9 đến 11 số)" minlength="9" maxlength="11" required>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </div>
+                                    </form><!-- End Profile Edit Form -->
+                                </div>
+
+                                <div class="tab-pane fade pt-3" id="profile-settings">
+                                </div>
+
+                                <div class="tab-pane fade pt-3" id="profile-change-password">
+                                    <!-- Change Password Form -->
+                                    <form id="changePasswordForm" method="post" onsubmit="return validateForm()">
+                                        <input type="hidden" name="userId" value="@Model.UserModel.UserId" />
+                                        <div class="row mb-3">
+                                            <label for="currentPassword"  class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input class="form-control" type="password" id="currentPassword" name="currentPassword" value="" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input class="form-control" type="password" id="newPassword" asp-for="@Model.UserModel.Password" name="newPassword"  value="" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            @(Model.Message)
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Change Password</button>
+                                        </div>
+                                    </form>
+                                    <script>
+                                        function validateForm() {
+                                            var newPassword = document.getElementById("newPassword").value.trim();
+
+                                            if (newPassword === "") {
+                                                alert("Do not enter spaces.");
+                                                return false;
+                                            }
+
+                                            return true;
+                                        }
+                                    </script><!-- End Change Password Form -->
+                                </div>
+
+
+                            </div><!-- End Bordered Tabs -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+  @*   <div id="footer" class="footer border-top pt-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-5">
+                    <strong>Suu Truyện</strong> - <a title="Đọc truyện online" class="text-dark text-decoration-none"
+                                                     href="#">Đọc truyện</a> online một cách nhanh nhất. Hỗ trợ mọi thiết bị như
+                    di
+                    động và máy tính bảng.
+                </div>
+                <ul class="col-12 col-md-7 list-unstyled d-flex flex-wrap list-tag">
+                    <c:forEach items="${category}" var="ca">
+                        <li class="me-1">
+                            <span class="badge text-bg-light">
+                                <a class="text-dark text-decoration-none"
+                                   href="category?cid=${ca.cateid}">cate</a>
+                            </span>
+                        </li>
+                    </c:forEach>
+                </ul>
+
+                <div class="col-12">
+                    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+                        <img alt="Creative Commons License" style="border-width:0;margin-bottom: 10px"
+                             src="./images/88x31.png">
+                    </a><br>
+                    <p>
+                        Website hoạt động dưới Giấy phép truy cập mở <a rel="license"
+                                                                        class="text-decoration-none text-dark hover-title"
+                                                                        href="http://creativecommons.org/licenses/by/4.0/">
+                            Creative Commons Attribution 4.0
+                            International License
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div> *@
+    <!-- Vendor JS Files -->
+    <script src="~/css/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="~/css/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
