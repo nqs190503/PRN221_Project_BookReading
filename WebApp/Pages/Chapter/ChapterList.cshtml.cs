@@ -12,10 +12,15 @@ namespace WebApp.Pages.Chapter
         {
             this.context = context;
         }
+        public string? UserId { get; set; } = default!;
+        public List<Category> Categories { get; set; } = new List<Category>();
+
         public List<BusinessObject.Models.Chapter> Chapters { get; set; } = new List<BusinessObject.Models.Chapter>();
         public Dictionary<int,int> CountWords { get; set; } = new Dictionary<int, int>();
         public void OnGet(int id)
         {
+            Categories = context.Categories.ToList();
+            UserId = HttpContext.Session.GetString("userId");
             Chapters = context.Chapters.Where(x => x.BookId == id).ToList();
             foreach (var chapter in Chapters)
             {
