@@ -26,7 +26,6 @@
 </head>
 
 <body>
-    <jsp:include page="Menu.jsp"></jsp:include>
     <!-- ======= Sidebar ======= -->
     <aside style="margin-top: 80px" id="sidebar" class="sidebar">
 
@@ -40,25 +39,25 @@
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link " href="profile">
+                <a class="nav-link " href="#">
                     <i class="bi bi-person"></i>
                     <span>Profile</span>
                 </a>
             </li><!-- End Profile Page Nav -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="postbook">
+                <a class="nav-link collapsed" asp-page="/Profile/Book">
                     <i class="bi bi-envelope"></i>
                     <span>Ðăng truyện</span>
                 </a>
             </li><!-- End Contact Page Nav -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="mylist?creator=${user.userID}">
+                <a class="nav-link collapsed" asp-page="/Book/ManageBook">
                     <i class="bi bi-envelope"></i>
                     <span>Danh sách truyện</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="managerchapter?creator=${user.userID}">
+                <a class="nav-link collapsed" asp-page="/Book/ManageChapter">
                     <i class="bi bi-envelope"></i>
                     <span>Quản lý chapter</span>
                 </a>
@@ -106,6 +105,11 @@
                                 <li class="nav-item">
                                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">
                                         Đổi mật khẩu
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-reading-history">
+                                        Lịch sử đọc truyện
                                     </button>
                                 </li>
                             </ul>
@@ -177,7 +181,7 @@
                                     <form id="changePasswordForm" method="post" onsubmit="return validateForm()">
                                         <input type="hidden" name="userId" value="@Model.UserModel.UserId" />
                                         <div class="row mb-3">
-                                            <label for="currentPassword"  class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                                            <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input class="form-control" type="password" id="currentPassword" name="currentPassword" value="" required>
                                             </div>
@@ -186,7 +190,51 @@
                                         <div class="row mb-3">
                                             <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input class="form-control" type="password" id="newPassword" asp-for="@Model.UserModel.Password" name="newPassword"  value="" required>
+                                                <input class="form-control" type="password" id="newPassword" asp-for="@Model.UserModel.Password" name="newPassword" value="" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            @(Model.Message)
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Change Password</button>
+                                        </div>
+                                    </form>
+                                    <script>
+                                        function validateForm() {
+                                            var newPassword = document.getElementById("newPassword").value.trim();
+
+                                            if (newPassword === "") {
+                                                alert("Do not enter spaces.");
+                                                return false;
+                                            }
+
+                                            return true;
+                                        }
+                                    </script><!-- End Change Password Form -->
+                                </div>
+                                <div class="tab-pane fade pt-3" id="profile-reading-history">
+                                    <!-- Change Password Form -->
+                                    <form id="changePasswordForm" method="post" onsubmit="return validateForm()">
+                                        <input type="hidden" name="userId" value="@Model.UserModel.UserId" />
+                                        <div class="row mb-3">
+                                            <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input class="form-control" type="password" id="currentPassword" name="currentPassword" value="" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input class="form-control" type="password" id="newPassword" asp-for="@Model.UserModel.Password" name="newPassword" value="" required>
                                             </div>
                                         </div>
 
@@ -227,42 +275,42 @@
         </section>
 
     </main><!-- End #main -->
-  @*   <div id="footer" class="footer border-top pt-2">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-md-5">
-                    <strong>Suu Truyện</strong> - <a title="Đọc truyện online" class="text-dark text-decoration-none"
-                                                     href="#">Đọc truyện</a> online một cách nhanh nhất. Hỗ trợ mọi thiết bị như
-                    di
-                    động và máy tính bảng.
-                </div>
-                <ul class="col-12 col-md-7 list-unstyled d-flex flex-wrap list-tag">
-                    <c:forEach items="${category}" var="ca">
-                        <li class="me-1">
-                            <span class="badge text-bg-light">
-                                <a class="text-dark text-decoration-none"
-                                   href="category?cid=${ca.cateid}">cate</a>
-                            </span>
-                        </li>
-                    </c:forEach>
-                </ul>
+    @*   <div id="footer" class="footer border-top pt-2">
+    <div class="container">
+    <div class="row">
+    <div class="col-12 col-md-5">
+    <strong>Suu Truyện</strong> - <a title="Đọc truyện online" class="text-dark text-decoration-none"
+    href="#">Đọc truyện</a> online một cách nhanh nhất. Hỗ trợ mọi thiết bị như
+    di
+    động và máy tính bảng.
+    </div>
+    <ul class="col-12 col-md-7 list-unstyled d-flex flex-wrap list-tag">
+    <c:forEach items="${category}" var="ca">
+    <li class="me-1">
+    <span class="badge text-bg-light">
+    <a class="text-dark text-decoration-none"
+    href="category?cid=${ca.cateid}">cate</a>
+    </span>
+    </li>
+    </c:forEach>
+    </ul>
 
-                <div class="col-12">
-                    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
-                        <img alt="Creative Commons License" style="border-width:0;margin-bottom: 10px"
-                             src="./images/88x31.png">
-                    </a><br>
-                    <p>
-                        Website hoạt động dưới Giấy phép truy cập mở <a rel="license"
-                                                                        class="text-decoration-none text-dark hover-title"
-                                                                        href="http://creativecommons.org/licenses/by/4.0/">
-                            Creative Commons Attribution 4.0
-                            International License
-                        </a>
-                    </p>
-                </div>
-            </div>
-        </div>
+    <div class="col-12">
+    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+    <img alt="Creative Commons License" style="border-width:0;margin-bottom: 10px"
+    src="./images/88x31.png">
+    </a><br>
+    <p>
+    Website hoạt động dưới Giấy phép truy cập mở <a rel="license"
+    class="text-decoration-none text-dark hover-title"
+    href="http://creativecommons.org/licenses/by/4.0/">
+    Creative Commons Attribution 4.0
+    International License
+    </a>
+    </p>
+    </div>
+    </div>
+    </div>
     </div> *@
     <!-- Vendor JS Files -->
     <script src="~/css/vendor/apexcharts/apexcharts.min.js"></script>

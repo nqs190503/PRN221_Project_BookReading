@@ -1,8 +1,9 @@
 using BusinessObject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
-namespace WebApp.Pages.Homepage
+namespace WebApp.Pages.Book
 {
     public class ChapterModel : PageModel
     {
@@ -14,21 +15,24 @@ namespace WebApp.Pages.Homepage
         }
         public List<Category> Categories { get; set; } = new List<Category>();
         public string? UserId { get; set; } = default!;
-        public BusinessObject.Models.Chapter Chapter { get; set; } = default!;
-        public BusinessObject.Models.Book Book { get; set; } = default!;
-        public void OnGet(int id, int bookId)
+
+        public List<BusinessObject.Models.Book> Books { get; set; } = new List<BusinessObject.Models.Book>();
+        public void OnGet()
         {
             Categories = context.Categories.ToList();
             UserId = HttpContext.Session.GetString("userId");
-            var existBook = context.Books.FirstOrDefault(x => x.BookId == bookId);
-            if (existBook != null)
+            if (!string.IsNullOrEmpty(UserId))
             {
-                Book = existBook;
+                Books = context.Books.Where(x => x.UserId == int.Parse(UserId) && !x.Status.Equals("Delete")).Include(x => x.User).ToList();
             }
-            var exist = context.Chapters.Find(id);
-            if (exist != null)
+            foreach(var b in Books)
             {
-                Chapter = exist;
+                if (b.Img != null && b.Img.Contains("/images"))
+                {
+                    //Img= "~" + exist.Img.Substring(1);
+                    b.Img = "~" + b.Img.Substring(1);
+
+                }
             }
         }
     }

@@ -40,7 +40,7 @@
         <!-- place navbar here -->
         <nav class="navbar navbar-expand-lg navbar-dark header__navbar p-md-0">
             <div class="container">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" asp-page="/Homepage/Index">
                     <img src="~/images/logo_text.png" alt="Logo Suu Truyen" srcset="" class="img-fluid"
                          style="width: 200px;">
                 </a>
@@ -61,7 +61,7 @@
                                     foreach (var cate in Model.Categories)
                                     {
                                         <li>
-                                            <a class="dropdown-item" href="category.html">
+                                            <a class="dropdown-item" asp-page="/Homepage/Category" asp-route-id="@cate.CateId">
                                                 @cate.Name
                                             </a>
                                         </li>

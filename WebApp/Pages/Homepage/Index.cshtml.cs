@@ -12,14 +12,15 @@ namespace WebApp.Pages.Homepage
             this.context = context;
         }
 
-        public List<Book> Books { get; set; } = new List<Book>();
+        public List<BusinessObject.Models.Book> Books { get; set; } = new List<BusinessObject.Models.Book>();
         public List<Category> Categories { get; set; } = new List<Category>();
         public string? UserId { get; set; } = default!;
         public void OnGet()
         {
             Categories = context.Categories.ToList();
             UserId = HttpContext.Session.GetString("userId");
-            Books = context.Books.ToList();
+            Books = context.Books.Where(x=>!x.Status.Equals("Delete")).ToList();
         }
+        public void OnPost() { }
     }
 }

@@ -97,7 +97,7 @@ namespace BusinessObject.Models
                 entity.ToTable("Category_in_book");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
+                    //.ValueGeneratedNever()
                     .HasColumnName("id");
 
                 entity.Property(e => e.BookId).HasColumnName("BookID");

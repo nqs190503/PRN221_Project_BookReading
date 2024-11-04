@@ -1,0 +1,131 @@
+﻿@page
+@model WebApp.Pages.Chapter.ChapterListModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="~/css/vendor/simple-datatables/style.css" rel="stylesheet">
+    <link href="~/css/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/css/vendor/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        .table td {
+            width: 20%; /* Đặt chiều rộng 20% cho mỗi cột */
+        }
+
+        .detail {
+            /* Điều chỉnh kích cỡ nội dung trong cột Detail */
+            font-size: 13px;
+        }
+
+    </style>
+</head>
+<body>
+    <aside style="margin-top: 80px" id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <li class="nav-item">
+                <span><button><a href="#">Quay về trang chủ</a></button></span>
+            </li>
+            <li class="nav-item">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " asp-page="/Profile/Index" asp-route-id="@(int.Parse(HttpContext.Session.GetString("userId")))">
+                    <i class="bi bi-person"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" asp-page="/Profile/Book">
+                    <i class="bi bi-envelope"></i>
+                    <span>Ðăng truyện</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" asp-page="/Book/ManageBook">
+                    <i class="bi bi-envelope"></i>
+                    <span>Danh sách truyện</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" asp-page="/Book/ManageChapter">
+                    <i class="bi bi-envelope"></i>
+                    <span>Quản lý chapter</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+    <main style="margin-top: 4px" id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>List chapter</h1>
+        </div>
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-body">
+
+                            <table class="table datatable">
+                                <thead>
+                                    <tr>
+                                        <th>Chương</th>
+                                        <th>Tên chương</th>
+                                        <th>Số chữ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        foreach(var chap in Model.Chapters)
+                                        {   
+                                      
+                                        <tr>
+                                            <td class="listnumberchap">
+                                                @chap.NumberChapter <br>
+                                                <a asp-page="/Chapter/EditChapter" asp-route-id="@chap.ChapterId" class="btn btn-secondary btn-sm mb-1 mr-md-1">Sửa Chương</a>
+                                                <a asp-page="/Homepage/Chapter" asp-route-id="@chap.ChapterId" asp-route-bookId="@chap.BookId" class="btn btn-secondary btn-sm mb-1 mr-md-1">Xem chương</a>
+                                                <a href="javascript:void(0);" onclick="confirmDelete(@chap.ChapterId)" class="btn btn-secondary btn-sm mb-1 mr-md-1">Xóa</a>
+                                            </td>
+                                            <td class="listnamechap">@chap.ChapterName</td>
+                                            <td class="countwords">@Model.CountWords[chap.ChapterId]</td>
+                                        </tr>
+                                        }
+                                    }
+                                    <script>
+                                        function confirmDelete(chapterId) {
+                                            if (confirm("Bạn có muốn xóa chapter này ?")) {
+                                                // Nếu người dùng đồng ý xóa, chuyển hướng đến trang xóa với id của sách
+                                                window.location.href = "DeleteChapter?id=" + chapterId;
+                                            }
+                                        }
+                                    </script>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <script src="~/css/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="~/css/vendor/tinymce/tinymce.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/css/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="~/css/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/css/vendor/chart.js/chart.umd.js"></script>
+    <script src="~/css/vendor/echarts/echarts.min.js"></script>
+    <script src="~/css/vendor/quill/quill.min.js"></script>
+    <script src="~/css/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="~/css/vendor/tinymce/tinymce.min.js"></script>
+    <script src="~/css/vendor/php-email-form/validate.js"></script>
+</body>
+</html>
