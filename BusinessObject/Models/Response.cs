@@ -7,10 +7,11 @@ namespace BusinessObject.Models
     {
         public int ResponseId { get; set; }
         public int UserId { get; set; }
-        public string Title { get; set; } = null!;
         public string Detail { get; set; } = null!;
         public DateTime ResponseTime { get; set; }
+        public int? ReportId { get; set; }
 
+        public virtual Report? Report { get; set; }
         public virtual User User { get; set; } = null!;
     }
 }

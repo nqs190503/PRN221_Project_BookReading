@@ -16,9 +16,12 @@ namespace WebApp.Pages.Homepage
         public List<Category> Categories { get; set; } = new List<Category>();
         public string? UserId { get; set; } = default!;
         public BusinessObject.Models.Book Book { get; set; } = default!;
+        public int BookId { get; set; }
 
         public void OnGet(int id)
         {
+            BookId = id;
+
             Categories = context.Categories.ToList();
             UserId = HttpContext.Session.GetString("userId");
             var exist = context.Books.Include(x => x.Chapters).FirstOrDefault(x => x.BookId == id);
