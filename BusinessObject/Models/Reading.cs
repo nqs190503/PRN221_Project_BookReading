@@ -5,6 +5,7 @@ namespace BusinessObject.Models
 {
     public partial class Reading
     {
+        public int Id { get; set; }
         public int UserId { get; set; }
         public int Bookid { get; set; }
         public int Chapterid { get; set; }

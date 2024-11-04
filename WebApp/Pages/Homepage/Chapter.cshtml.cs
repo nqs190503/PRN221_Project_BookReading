@@ -20,6 +20,7 @@ namespace WebApp.Pages.Homepage
         {
             Categories = context.Categories.ToList();
             UserId = HttpContext.Session.GetString("userId");
+            
             var existBook = context.Books.FirstOrDefault(x => x.BookId == bookId);
             if (existBook != null)
             {
@@ -29,6 +30,26 @@ namespace WebApp.Pages.Homepage
             if (exist != null)
             {
                 Chapter = exist;
+            }
+            if (!string.IsNullOrEmpty(UserId) && exist != null && existBook != null)
+            {
+                var uid = int.Parse(UserId);
+                var user = context.Users.Find(uid);
+                var reading = context.Readings.FirstOrDefault(x => x.UserId == uid && x.Chapterid == id);
+                if (reading == null && user!=null)
+                {
+                    context.Readings.Add(new Reading
+                    {
+                        User = user,
+                        Book = existBook,
+                        Chapter = exist,
+                        Chapterid = exist.ChapterId,
+                        Bookid = exist.BookId,
+                        UserId = uid,
+                        ReadingDate = DateTime.Now,
+                    });
+                    context.SaveChanges();
+                }
             }
         }
     }

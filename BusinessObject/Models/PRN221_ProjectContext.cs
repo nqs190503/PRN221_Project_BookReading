@@ -239,7 +239,7 @@ namespace BusinessObject.Models
 
             modelBuilder.Entity<Reading>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.Id);
 
                 entity.ToTable("Reading");
 

@@ -1,6 +1,7 @@
 ﻿using BusinessObject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -19,12 +20,14 @@ namespace WebApp.Pages.Profile
         [BindProperty]
         public User UserModel { get; set; } = default!;
 
+        public List<Reading>Readings { get; set; } = new List<Reading>();
+        
         public string Message { get; set; } = string.Empty;
         public void OnGet(int id)
         {
             Categories = context.Categories.ToList();
             UserId = HttpContext.Session.GetString("userId");
-
+            Readings = context.Readings.Include(x=>x.Book).Include(x=>x.Chapter).Where(x=>x.UserId == id).ToList();
             var exist = context.Users.Find(id);
             if (exist != null)
             {

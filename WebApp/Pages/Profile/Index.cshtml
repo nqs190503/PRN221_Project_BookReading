@@ -364,47 +364,32 @@
                                 </div>
                                 <div class="tab-pane fade pt-3" id="profile-reading-history">
                                     <!-- Change Password Form -->
-                                    <form id="changePasswordForm" method="post" onsubmit="return validateForm()">
-                                        <input type="hidden" name="userId" value="@Model.UserModel.UserId" />
-                                        <div class="row mb-3">
-                                            <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input class="form-control" type="password" id="currentPassword" name="currentPassword" value="" required>
-                                            </div>
-                                        </div>
+                                    <div class="row">
+                                        <table>
+                                            <tr>
+                                                <td>Tiêu đề</td>
+                                                <td>Hình ảnh</td>
+                                                <td>Chapter</td>
+                                                <td>Ngày đọc</td>
+                                            </tr>
+                                            @{
+                                                foreach(var read in Model.Readings)
+                                                {
+                                                    
+                                                
+                                                <tr>
+                                                    <td>@read.Book.Title</td>
+                                                    <td><img src="@read.Book.Img" alt="alt" />></td>
+                                                    <td><a asp-page="/Homepage/Chapter" 
+                                                    asp-route-id="@read.Chapter.ChapterId" 
+                                                    asp-route-bookId="@read.Book.BookId">@read.Chapter.ChapterName</a></td>
+                                                    <td>@read.ReadingDate</td>
+                                                </tr>
 
-                                        <div class="row mb-3">
-                                            <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input class="form-control" type="password" id="newPassword" asp-for="@Model.UserModel.Password" name="newPassword" value="" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" required>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            @(Model.Message)
-                                        </div>
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-primary">Change Password</button>
-                                        </div>
-                                    </form>
-                                    <script>
-                                        function validateForm() {
-                                            var newPassword = document.getElementById("newPassword").value.trim();
-
-                                            if (newPassword === "") {
-                                                alert("Do not enter spaces.");
-                                                return false;
+                                                }
                                             }
-
-                                            return true;
-                                        }
-                                    </script><!-- End Change Password Form -->
+                                        </table>
+                                    </div>
                                 </div>
 
 
