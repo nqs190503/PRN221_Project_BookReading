@@ -33,4 +33,11 @@
     <UpToDateCheckInput Remove="Pages\Login\Logout.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css\vendor\datepicker\" />
+    <Folder Include="wwwroot\css\vendor\font-awesome-4.7\" />
+    <Folder Include="wwwroot\css\vendor\mdi-font\" />
+    <Folder Include="wwwroot\css\vendor\select2\" />
+  </ItemGroup>
+
 </Project>

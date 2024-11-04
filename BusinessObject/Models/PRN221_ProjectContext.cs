@@ -47,6 +47,10 @@ namespace BusinessObject.Models
 
                 entity.Property(e => e.BookId).HasColumnName("bookID");
 
+                entity.Property(e => e.Approve)
+                    .HasMaxLength(50)
+                    .HasColumnName(" approve");
+
                 entity.Property(e => e.AuthorName).HasColumnName("authorName");
 
                 entity.Property(e => e.Detail).HasColumnName("detail");
@@ -270,9 +274,9 @@ namespace BusinessObject.Models
 
             modelBuilder.Entity<Report>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("Report");
+
+                entity.Property(e => e.ReportId).HasColumnName("reportId");
 
                 entity.Property(e => e.BookId).HasColumnName("bookId");
 
@@ -284,12 +288,14 @@ namespace BusinessObject.Models
 
                 entity.Property(e => e.Problem).HasColumnName("problem");
 
-                entity.Property(e => e.ReportId).ValueGeneratedOnAdd();
+                entity.Property(e => e.ReplyStatus)
+                    .HasMaxLength(100)
+                    .HasColumnName("replyStatus ");
 
                 entity.Property(e => e.UserId).HasColumnName("userID");
 
                 entity.HasOne(d => d.Book)
-                    .WithMany()
+                    .WithMany(p => p.Reports)
                     .HasForeignKey(d => d.BookId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Report_Book");
@@ -330,15 +336,18 @@ namespace BusinessObject.Models
 
                 entity.Property(e => e.Detail).HasColumnName("detail");
 
+                entity.Property(e => e.ReportId).HasColumnName("reportId");
+
                 entity.Property(e => e.ResponseTime)
                     .HasColumnType("datetime")
                     .HasColumnName("responseTime");
 
-                entity.Property(e => e.Title)
-                    .HasMaxLength(50)
-                    .HasColumnName("title");
-
                 entity.Property(e => e.UserId).HasColumnName("userID");
+
+                entity.HasOne(d => d.Report)
+                    .WithMany(p => p.Responses)
+                    .HasForeignKey(d => d.ReportId)
+                    .HasConstraintName("FK_Response_Report");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Responses)

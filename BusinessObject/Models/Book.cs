@@ -11,6 +11,7 @@ namespace BusinessObject.Models
             Chapters = new HashSet<Chapter>();
             Comments = new HashSet<Comment>();
             Rates = new HashSet<Rate>();
+            Reports = new HashSet<Report>();
         }
 
         public int BookId { get; set; }
@@ -22,11 +23,13 @@ namespace BusinessObject.Models
         public string? Img { get; set; }
         public DateTime PublishDate { get; set; }
         public string Status { get; set; } = null!;
+        public string? Approve { get; set; }
 
         public virtual User? User { get; set; }
         public virtual ICollection<CategoryInBook> CategoryInBooks { get; set; }
         public virtual ICollection<Chapter> Chapters { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Rate> Rates { get; set; }
+        public virtual ICollection<Report> Reports { get; set; }
     }
 }
