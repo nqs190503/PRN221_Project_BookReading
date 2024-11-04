@@ -6,9 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <!--<Content Remove="Pages\Login.cshtml" />-->
+  <ItemGroup><!--<Content Remove="Pages\Login.cshtml" />-->
     <!--<Content Remove="Pages\Login\Logout.cshtml" />-->
+  
+    <!--<Content Remove="Pages\Chapter\AddChapter.cshtml" />-->
   </ItemGroup>
 
   <ItemGroup>
