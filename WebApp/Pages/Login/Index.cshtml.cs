@@ -1,4 +1,4 @@
-using BusinessObject.Models;
+﻿using BusinessObject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -16,6 +16,7 @@ namespace WebApp.Pages.Login
         public string UserId { get; set; } = default!;
         [BindProperty]
         public User UserLogin { get; set; } = default!;
+        public string Message { get; set; } = string.Empty;
         public void OnGet()
         {
             Categories = context.Categories.ToList();
@@ -31,6 +32,7 @@ namespace WebApp.Pages.Login
             }
             else
             {
+                Message = "Sai tên đăng nhập hoặc mật khẩu";
                 return Page();
             }
         }
