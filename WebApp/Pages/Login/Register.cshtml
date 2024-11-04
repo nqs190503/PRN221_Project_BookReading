@@ -1,5 +1,5 @@
 ﻿@page
-@model LoginModel
+@model WebApp.Pages.Login.RegisterModel
 @{
     Layout = null;
 }
@@ -241,17 +241,20 @@
 
                 <form method="post" class="login">
                     <div class="field">
-                        <input name="username" type="text" placeholder="Tên đăng nhập" asp-for="@Model.UserLogin.UserName" required>
+                        <input asp-for="@Model.UserModel.UserName" type="text" placeholder="Tên đăng nhập" required>
                     </div>
                     <div class="field">
-                        <input name="password" type="password" placeholder="Mật khẩu" asp-for="@Model.UserLogin.Password" required>
+                        <input asp-for="@Model.UserModel.Password"  type="password" placeholder="Mật khẩu"  required>
+                    </div>
+                    <div class="field">
+                        <input name="confirmPassword" type="password" placeholder="Nhập lại mật khẩu" required>
                     </div>
                     @* <div class="pass-link"><a href="resetpass">Quên mật khẩu</a></div> *@
                     </br>
 
                     <div class="field btn">
                         <div class="btn-layer"></div>
-                        <input type="submit" value="Login">
+                        <input type="submit" value="Đăng ký">
                     </div>
                     @{
                         if (!string.IsNullOrEmpty(Model.Message))
@@ -259,7 +262,7 @@
                             <p class="alert-danger">@Model.Message</p>
                         }
                     }
-                    <div class="signup-link">Tạo tài khoản : <a asp-page="/Login/Register">Đăng ký</a></div>
+                    
                 </form>
             </div>
         </div>

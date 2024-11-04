@@ -6,38 +6,40 @@ using System.Text;
 
 namespace WebApp.Pages.Login
 {
-    public class LoginModel : PageModel
+    public class RegisterModel : PageModel
     {
         private readonly PRN221_ProjectContext context;
 
-        public LoginModel(PRN221_ProjectContext context)
+        public RegisterModel(PRN221_ProjectContext context)
         {
             this.context = context;
         }
-        public List<Category> Categories { get; set; } = new List<Category>();
-        public string UserId { get; set; } = default!;
+
         [BindProperty]
-        public User UserLogin { get; set; } = default!;
+        public User UserModel { get; set; } = default!;
         public string Message { get; set; } = string.Empty;
         public void OnGet()
         {
-            Categories = context.Categories.ToList();
         }
         public IActionResult OnPost()
         {
-            UserLogin.Password = HashPassword(UserLogin.Password);
-            var exist = context.Users.FirstOrDefault(x => x.UserName.Equals(UserLogin.UserName)
-            && x.Password.Equals(UserLogin.Password));
-            if (exist != null)
+            var existUsername = context.Users.FirstOrDefault(x => x.UserName.Equals(UserModel.UserName));
+            if (existUsername != null)
             {
-                HttpContext.Session.SetString("userId", exist.UserId.ToString());
-                return RedirectToPage("/Homepage/Index");
-            }
-            else
-            {
-                Message = "Sai tên đăng nhập hoặc mật khẩu";
+                Message = "Tên đăng nhập đã tồn tại";
                 return Page();
             }
+            string confirmPassword = Request.Form["confirmPassword"];
+            if (!confirmPassword.Equals(UserModel.Password))
+            {
+                Message = "Mật khẩu nhập lại không trùng";
+                return Page();
+            }
+            UserModel.Password = HashPassword(UserModel.Password);
+            context.Users.Add(UserModel);
+            context.SaveChanges();
+            HttpContext.Session.SetString("userId", UserModel.UserId.ToString());
+            return RedirectToPage("/Homepage/Index");
         }
         private string HashPassword(string password)
         {
