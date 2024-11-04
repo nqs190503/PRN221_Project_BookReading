@@ -1,6 +1,8 @@
 ﻿using BusinessObject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace WebApp.Pages.Login
 {
@@ -33,10 +35,24 @@ namespace WebApp.Pages.Login
                 Message = "Mật khẩu nhập lại không trùng";
                 return Page();
             }
+            UserModel.Password = HashPassword(UserModel.Password);
             context.Users.Add(UserModel);
             context.SaveChanges();
             HttpContext.Session.SetString("userId", UserModel.UserId.ToString());
             return RedirectToPage("/Homepage/Index");
+        }
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                {
+                    builder.Append(b.ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
     }
 }

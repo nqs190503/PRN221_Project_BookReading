@@ -1,6 +1,8 @@
 ﻿using BusinessObject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace WebApp.Pages.Profile
 {
@@ -33,6 +35,7 @@ namespace WebApp.Pages.Profile
         {
             string newPassword = Request.Form["newPassword"];
             string currentPassword = Request.Form["currentPassword"];
+            currentPassword = HashPassword(currentPassword);
             string confirmPassword = Request.Form["confirmPassword"];
             string userId = Request.Form["userId"];
             var user = context.Users.Find(int.Parse(userId));
@@ -80,6 +83,20 @@ namespace WebApp.Pages.Profile
             }
             
             return Page();
+        }
+
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                {
+                    builder.Append(b.ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
     }
 }
