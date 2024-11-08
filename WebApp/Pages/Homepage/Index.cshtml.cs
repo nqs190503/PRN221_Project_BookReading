@@ -22,11 +22,11 @@ namespace WebApp.Pages.Homepage
         {
             Categories = context.Categories.ToList();
             UserId = HttpContext.Session.GetString("userId");
-            Books = context.Books.Where(x=>!x.Status.Equals("Delete")).ToList();
-            NewBooks = context.Books.Include(x=>x.Chapters).Where(x=>!x.Status.Equals("Delete") && x.Chapters.Any()).OrderByDescending(x=>x.PublishDate).ToList();
-            foreach(var b in NewBooks)
+            Books = context.Books.Where(x => !x.Status.Equals("Delete") && x.Approve.Equals("Approved")).ToList();
+            NewBooks = context.Books.Include(x => x.Chapters).Where(x => !x.Status.Equals("Delete") && x.Approve.Equals("Approved") && x.Chapters.Any()).OrderByDescending(x => x.PublishDate).ToList();
+            foreach (var b in NewBooks)
             {
-                var c = b.Chapters.OrderByDescending(x=>x.NumberChapter).First();
+                var c = b.Chapters.OrderByDescending(x => x.NumberChapter).First();
                 LatestChap.Add(b.BookId, c);
             }
         }

@@ -36,6 +36,7 @@ namespace WebApp.Pages.Login
                 return Page();
             }
             UserModel.Password = HashPassword(UserModel.Password);
+            UserModel.Active = true;
             context.Users.Add(UserModel);
             context.SaveChanges();
             HttpContext.Session.SetString("userId", UserModel.UserId.ToString());

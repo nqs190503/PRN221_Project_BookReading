@@ -18,23 +18,14 @@ namespace WebApp.Pages.Homepage
         public BusinessObject.Models.Book Book { get; set; } = default!;
         public int BookId { get; set; }
 
-        public void OnGet(int id)
+        public IActionResult OnGet(int id)
         {
             BookId = id;
 
             Categories = context.Categories.ToList();
             UserId = HttpContext.Session.GetString("userId");
             var exist = context.Books.Include(x => x.Chapters).FirstOrDefault(x => x.BookId == id);
-            if (exist != null)
-            {
-                if (exist.Img != null && exist.Img.Contains("/images"))
-                {
-                    //Img= "~" + exist.Img.Substring(1);
-                    exist.Img = "~" + exist.Img.Substring(1);
-
-                }
-                Book = exist;
-            }
+            
             var rateList = context.Rates.Where(x => x.BookId == id).Select(x => x.Point).ToList();
             ViewData["RateTime"] = rateList.Count;
             var ratePoint = 0;
@@ -46,7 +37,22 @@ namespace WebApp.Pages.Homepage
             {
                 ViewData["RatePoint"] = ratePoint / rateList.Count;
             }
+            if (exist != null)
+            {
+                //if (exist.Img != null && exist.Img.Contains("/images"))
+                //{
+                //    //Img= "~" + exist.Img.Substring(1);
+                //    exist.Img = "~" + exist.Img.Substring(1);
 
+                //}
+                Book = exist;
+                return Page();
+            }
+            else
+            {
+                return NotFound();
+            }
+           
         }
     }
 }

@@ -19,19 +19,18 @@ namespace WebApp.Pages.Homepage
         public List<Category> Categories { get; set; } = new List<Category>();
         public string? UserId { get; set; } = default!;
 
-        public void OnGet(int id)
+        public IActionResult OnGet(int id)
         {
             Categories = context.Categories.ToList();
             UserId = HttpContext.Session.GetString("userId");
-            Books = context.CategoryInBooks.Include(x => x.Book).Where(x => x.CateId == id && !x.Book.Status.Equals("Delete")).Select(x => x.Book).ToList();
-            foreach (var book in Books)
+            Books = context.CategoryInBooks.Include(x => x.Book).Where(x => x.CateId == id && x.Book.Approve.Equals("Approved") && !x.Book.Status.Equals("Delete")).Select(x => x.Book).ToList();
+            if (context.Categories.Find(id)!=null)
             {
-                if (book.Img != null && book.Img.Contains("/images"))
-                {
-                    //Img= "~" + exist.Img.Substring(1);
-                    book.Img = "~" + book.Img.Substring(1);
-
-                }
+                return Page();
+            }
+            else
+            {
+                return NotFound();
             }
 
 

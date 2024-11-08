@@ -31,7 +31,7 @@
         }
 
         .profile .profile-card img {
-             max-width: 0px !important; 
+            max-width: 400px !important;
         }
 
         .header {
@@ -218,7 +218,7 @@
 
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                            <img src="" width="290px" height="200px">
+                            <img src="@Model.UserModel.Avatar" width="290px" height="200px">
                             <h6 style="margin-top: 10px" class="f-w-600">Username</h6>
                             <p>Role</p>
                         </div>
@@ -278,7 +278,7 @@
                                             <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Avatar</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <img src="" alt="Profile" width="300" height="200"><br>
-                                                <input style="margin-top: 10px; margin-bottom: 10px" name="file" type="file" class="form-control" id="Email" value="">
+                                                <input style="margin-top: 10px; margin-bottom: 10px" name="File" type="file" class="form-control" id="Email" value="">
                                             </div>
                                         </div>
 
@@ -379,7 +379,7 @@
                                                 
                                                 <tr>
                                                     <td>@read.Book.Title</td>
-                                                    <td><img src="@read.Book.Img" alt="alt" />></td>
+                                                    <td><img style="width:100px; height:100px;" src="@read.Book.Img" alt="alt" /></td>
                                                     <td><a asp-page="/Homepage/Chapter" 
                                                     asp-route-id="@read.Chapter.ChapterId" 
                                                     asp-route-bookId="@read.Book.BookId">@read.Chapter.ChapterName</a></td>

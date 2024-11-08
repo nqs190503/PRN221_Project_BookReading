@@ -418,6 +418,7 @@ namespace BusinessObject.Models
 
                 entity.Property(e => e.RoleId).HasColumnName("roleID");
 
+                entity.Property(e => e.Active).HasColumnName("active");
 
                 entity.Property(e => e.UserName)
                     .HasMaxLength(50)

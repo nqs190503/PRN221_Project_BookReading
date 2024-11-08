@@ -19,7 +19,8 @@ namespace WebApp.Pages.Profile
         public string? UserId { get; set; } = default!;
         [BindProperty]
         public User UserModel { get; set; } = default!;
-
+        [BindProperty]
+        public IFormFile File { get; set; }
         public List<Reading>Readings { get; set; } = new List<Reading>();
         
         public string Message { get; set; } = string.Empty;
@@ -38,7 +39,10 @@ namespace WebApp.Pages.Profile
         {
             string newPassword = Request.Form["newPassword"];
             string currentPassword = Request.Form["currentPassword"];
-            currentPassword = HashPassword(currentPassword);
+            if(currentPassword != null)
+            {
+                currentPassword = HashPassword(currentPassword);
+            }
             string confirmPassword = Request.Form["confirmPassword"];
             string userId = Request.Form["userId"];
             var user = context.Users.Find(int.Parse(userId));
@@ -58,7 +62,7 @@ namespace WebApp.Pages.Profile
                         }
                         else
                         {
-                            user.Password = newPassword;
+                            user.Password = HashPassword(newPassword);
                             UserModel = user;
                             context.Users.Update(user);
                             context.SaveChanges();
@@ -72,9 +76,33 @@ namespace WebApp.Pages.Profile
                 }
                 else
                 {
+                    if (File != null)
+                    {
+                        
+                        var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+
+                     
+                        if (!Directory.Exists(folderPath))
+                        {
+                            Directory.CreateDirectory(folderPath);
+                        }
+
+                       
+                        var filePath = Path.Combine(folderPath, File.FileName);
+
+                       
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                             File.CopyTo(stream);
+                        }
+                    }
                     string email = Request.Form["email"];
                     string address = Request.Form["address"];
                     string phone = Request.Form["phone"];
+                    if (File != null)
+                    {
+                        user.Avatar = "/images/" + File.FileName;
+                    }
                     user.Email = email;
                     user.Address = address;
                     user.Phone = phone;
@@ -85,7 +113,7 @@ namespace WebApp.Pages.Profile
                 }
             }
             
-            return Page();
+            return RedirectToPage("/Profile/Index",new {id=user.UserId});
         }
 
         private string HashPassword(string password)

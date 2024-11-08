@@ -23,6 +23,7 @@ namespace BusinessObject.Models
         public string? Avatar { get; set; }
         public int RoleId { get; set; }
 
+        public bool Active {  get; set; }
         public virtual Role Role { get; set; } = null!;
         public virtual ICollection<Book> Books { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }

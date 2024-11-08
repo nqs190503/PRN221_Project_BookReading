@@ -16,7 +16,7 @@ namespace WebApp.Pages.Homepage
         public string? UserId { get; set; } = default!;
         public BusinessObject.Models.Chapter Chapter { get; set; } = default!;
         public BusinessObject.Models.Book Book { get; set; } = default!;
-        public void OnGet(int id, int bookId)
+        public IActionResult OnGet(int id, int bookId)
         {
             Categories = context.Categories.ToList();
             UserId = HttpContext.Session.GetString("userId");
@@ -30,6 +30,14 @@ namespace WebApp.Pages.Homepage
             if (exist != null)
             {
                 Chapter = exist;
+            }
+            if (exist == null)
+            {
+                return NotFound();
+            }
+            if (existBook == null)
+            {
+                return NotFound();
             }
             if (!string.IsNullOrEmpty(UserId) && exist != null && existBook != null)
             {
@@ -51,6 +59,8 @@ namespace WebApp.Pages.Homepage
                     context.SaveChanges();
                 }
             }
+            return Page();
+            
         }
     }
 }

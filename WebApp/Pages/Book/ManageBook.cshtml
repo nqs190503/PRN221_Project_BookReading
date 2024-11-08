@@ -48,6 +48,14 @@
             background-color: #fff;
             padding-left: 20px;
         }
+
+        .truncated {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Số dòng bạn muốn hiển thị ban đầu */
+            -webkit-box-orient: vertical;
+            text-overflow: ellipsis;
+        }
     </style>
     <link href="~/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/jumbotron-narrow.css" rel="stylesheet">
@@ -217,7 +225,7 @@
     <main style="margin-top: 4px" id="main" class="main">
 
         <div class="pagetitle">
-            <h1>My List</h1>
+            <h1>Danh sách</h1>
         </div>
 
         <section class="section">
@@ -234,7 +242,9 @@
                                         <th>Hình Ảnh</th>
                                         <th>Tên Tác Giả</th>
                                         <th>Tóm tắt truyện</th>
-                                        <th data-type="date" data-format="YYYY/DD/MM">Publish Date</th>
+                                        <th data-type="date" data-format="YYYY/DD/MM">Ngày đăng</th>
+                                        <th>Phê duyệt</th>
+
 
                                     </tr>
                                 </thead>
@@ -252,13 +262,30 @@
                                                 </td>
                                                 <td class="image"><img src="@Url.Content(book.Img)" width="100px"></td>
                                                 <td class="author">@book.AuthorName</td>
-                                                <td class="detail">@book.Detail</td>
+                                                <td class="detail">
+                                                    <div id="detail-@book.BookId" class="truncated">@book.Detail</div>
+                                                    <button id="toggle-btn-@book.BookId" onclick="toggleDetail(@book.BookId)" type="button" class="btn btn-link p-0">Mở rộng</button>
+                                                </td>
                                                 <td class="publishDate">@book.PublishDate</td>
+                                                <td class="publishDate">@(book.Approve)</td>
 
                                             </tr>
                                         }
                                     }
+                                    <script>
+                                        function toggleDetail(id) {
+                                            const detailElement = document.getElementById(`detail-${id}`);
+                                            const button = document.getElementById(`toggle-btn-${id}`);
 
+                                            if (detailElement.classList.contains('truncated')) {
+                                                detailElement.classList.remove('truncated');
+                                                button.textContent = 'Thu gọn';
+                                            } else {
+                                                detailElement.classList.add('truncated');
+                                                button.textContent = 'Mở rộng';
+                                            }
+                                        }
+                                    </script>
                                     <script>
                                         function confirmDelete(bookId) {
                                             if (confirm("Bạn có muốn xóa truyện này ?")) {

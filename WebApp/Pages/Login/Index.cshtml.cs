@@ -30,8 +30,16 @@ namespace WebApp.Pages.Login
             && x.Password.Equals(UserLogin.Password));
             if (exist != null)
             {
-                HttpContext.Session.SetString("userId", exist.UserId.ToString());
-                return RedirectToPage("/Homepage/Index");
+                if(exist.Active == false)
+                {
+                    Message = "Tài khoản đang bị khóa";
+                    return Page();
+                }
+                else
+                {
+                    HttpContext.Session.SetString("userId", exist.UserId.ToString());
+                    return RedirectToPage("/Homepage/Index");
+                }
             }
             else
             {

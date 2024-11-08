@@ -17,9 +17,13 @@ namespace WebApp.Pages.Chapter
         public string Message { get; set; } = string.Empty;
         [BindProperty]
         public int BookId { get; set; }
+        public List<Category> Categories { get; set; } = new List<Category>();
+        public string? UserId { get; set; } = default!;
         public void OnGet(int bookId)
         {
             BookId = bookId;
+            Categories = context.Categories.ToList();
+            UserId = HttpContext.Session.GetString("userId");
         }
         public IActionResult OnPost()
         {

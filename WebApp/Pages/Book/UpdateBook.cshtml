@@ -242,7 +242,7 @@
                                     }
                                 }
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-12" style="display:none">
                                 Publish Date
                                 <input type="date" class="form-control" asp-for="@Model.Book.PublishDate" required>
                             </div>
@@ -267,6 +267,10 @@
                                 Creator
                                 <input type="hidden" asp-for="@Model.Book.UserId">
                                 <input type="text" class="form-control" value="@Model.UserId" readonly>
+                            </div>
+                            <div class="col-md-12" style="display: none">
+                                Creator
+                                <input type="hidden" asp-for="@Model.Book.Approve">
                             </div>
                             <div class="col-md-12 text-center">
                                 <button type="submit" style="background-color: #4154f1; color: #fff;

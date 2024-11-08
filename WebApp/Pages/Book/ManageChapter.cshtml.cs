@@ -25,15 +25,6 @@ namespace WebApp.Pages.Book
             {
                 Books = context.Books.Where(x => x.UserId == int.Parse(UserId) && !x.Status.Equals("Delete")).Include(x => x.User).ToList();
             }
-            foreach(var b in Books)
-            {
-                if (b.Img != null && b.Img.Contains("/images"))
-                {
-                    //Img= "~" + exist.Img.Substring(1);
-                    b.Img = "~" + b.Img.Substring(1);
-
-                }
-            }
         }
     }
 }

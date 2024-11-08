@@ -28,12 +28,7 @@ namespace WebApp.Pages.Book
             if (exist != null)
             {
                 CategoriesInBook = context.CategoryInBooks.Where(x => x.BookId == exist.BookId).Select(x => x.CateId).ToList();
-                if (exist.Img != null && exist.Img.Contains("/images"))
-                {
-                    //Img= "~" + exist.Img.Substring(1);
-                    exist.Img = "~" + exist.Img.Substring(1);
-
-                }
+                
                 Book = exist;
             }
         }

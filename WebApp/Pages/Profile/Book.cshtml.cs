@@ -39,7 +39,9 @@ namespace WebApp.Pages.Profile
                 Book.User = user;
                 //Book.UserId = user.UserId;
             }
-            
+            Book.PublishDate = DateTime.Now;
+            Book.Status = "Updating";
+            Book.Approve = "Pending";
             context.Books.Add(Book);
             context.SaveChanges();
             foreach (var category in selectedCategories)

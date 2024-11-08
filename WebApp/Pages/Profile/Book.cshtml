@@ -176,9 +176,7 @@
     <aside style="margin-top: 80px" id="sidebar" class="sidebar">
 
         <ul class="sidebar-nav" id="sidebar-nav">
-            <li class="nav-item">
-                <span><button><a href="#">Quay về trang chủ</a></button></span>
-            </li>
+            
             <li class="nav-item">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
@@ -212,7 +210,7 @@
     <main style="margin-top: 4px" id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Post Comic</h1>
+            <h1>Đăng truyện</h1>
         </div><!-- End Page Title -->
 
         <section class="section contact">
@@ -222,15 +220,15 @@
                         
                         <div class="row gy-4">
                             <div class="col-md-12">
-                                Title
-                                <input type="text" name="title" asp-for="@Model.Book.Title" id="title" class="form-control" required>
+                                Tên truyện
+                                <input type="text" asp-for="@Model.Book.Title" id="title" class="form-control" required>
                             </div>
                             <div class="col-md-12">
-                                Author
-                                <input type="text" name="authorname" asp-for="@Model.Book.AuthorName" id="title" class="form-control" required>
+                                Tác giả
+                                <input type="text" asp-for="@Model.Book.AuthorName" id="title" class="form-control" required>
                             </div>
                             <div class="col-md-12">
-                                <h5>Category</h5>
+                                <h5>Thể loại</h5>
                                 @{
                                     foreach(var cate in Model.Categories)
                                     {
@@ -242,36 +240,25 @@
                                     }
                                 }  
                             </div>
+                            
                             <div class="col-md-12">
-                                Publish Date
-                                <input type="date" class="form-control" asp-for="@Model.Book.PublishDate" name="publishdate" required>
-                            </div>
-                            <div class="col-md-12">
-                                Image
-                                <input type="text" asp-for="@Model.Book.Img" class="form-control" name="image" required>
+                                Hình ảnh
+                                <input type="text" asp-for="@Model.Book.Img" class="form-control" required>
                             </div>
 
                             <div class="col-md-12">
-                                Detail
-                                <textarea asp-for="@Model.Book.Detail" class="form-control" name="detail" id="detail" rows="6" required minlength="100" maxlength="200"></textarea>
+                                Tóm tắt
+                                <textarea asp-for="@Model.Book.Detail" class="form-control" id="detail" rows="6" required minlength="100" maxlength="200"></textarea>
                                 <div style="font-size: 13px">
                                     Tóm tắt cho truyện không nên quá dài mà nên ngắn gọn, tập trung, thú vị. Phần này rất quan trọng vì nó quyết định độc giả có đọc hay không.
                                 </div>
                             </div>
-                            <div class="col-md-12" style="display: none">
-                                Status
-                                <input type="hidden" name="status" asp-for="@Model.Book.Status" value="Updating">
-                                <input type="text" class="form-control" value="Updating" readonly>
-                            </div>
-                            <div class="col-md-12" style="display: none">
-                                Creator
-                                <input type="hidden" name="creator" value="@Model.UserId">
-                                <input type="text" class="form-control" value="@Model.UserId" readonly>
-                            </div>
+                            
+                            
                             <div class="col-md-12 text-center">
                                 <button type="submit" style="background-color: #4154f1; color: #fff;
                                             padding: 10px 20px 10px 20px; border: none; border-radius: 5px">
-                                    Save New Comic
+                                    Đăng truyện
                                 </button>
                                 <button type="reset" style="background-color: #4154f1; color: #fff;
                                             padding: 10px 20px 10px 20px; border: none; border-radius: 5px">

@@ -20,16 +20,8 @@ namespace WebApp.Pages.Homepage
         {
             Categories = context.Categories.ToList();
             UserId = HttpContext.Session.GetString("userId");
-            Books = context.Books.Where(x => x.Title.Contains(key_word) && !x.Status.Equals("Delete")).ToList();
-            foreach (var book in Books)
-            {
-                if (book.Img != null && book.Img.Contains("/images"))
-                {
-                    //Img= "~" + exist.Img.Substring(1);
-                    book.Img = "~" + book.Img.Substring(1);
-
-                }
-            }
+            Books = context.Books.Where(x => x.Title.Contains(key_word) && x.Approve.Equals("Approved") && !x.Status.Equals("Delete")).ToList();
+            
         }
     }
 }
