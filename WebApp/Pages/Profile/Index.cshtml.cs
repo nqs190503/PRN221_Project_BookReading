@@ -22,13 +22,16 @@ namespace WebApp.Pages.Profile
         [BindProperty]
         public IFormFile File { get; set; }
         public List<Reading>Readings { get; set; } = new List<Reading>();
-        
+        public BusinessObject.Models.User user { get; set; }
+
         public string Message { get; set; } = string.Empty;
         public void OnGet(int id)
         {
             Categories = context.Categories.ToList();
             UserId = HttpContext.Session.GetString("userId");
             Readings = context.Readings.Include(x=>x.Book).Include(x=>x.Chapter).Where(x=>x.UserId == id).ToList();
+            user = context.Users.FirstOrDefault(x => x.UserId == int.Parse(UserId));
+
             var exist = context.Users.Find(id);
             if (exist != null)
             {
@@ -37,6 +40,7 @@ namespace WebApp.Pages.Profile
         }
         public IActionResult OnPost()
         {
+
             string newPassword = Request.Form["newPassword"];
             string currentPassword = Request.Form["currentPassword"];
             if(currentPassword != null)

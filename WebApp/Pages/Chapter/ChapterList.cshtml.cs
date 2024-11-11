@@ -17,11 +17,15 @@ namespace WebApp.Pages.Chapter
 
         public List<BusinessObject.Models.Chapter> Chapters { get; set; } = new List<BusinessObject.Models.Chapter>();
         public Dictionary<int,int> CountWords { get; set; } = new Dictionary<int, int>();
+        public BusinessObject.Models.User user { get; set; }
+
         public void OnGet(int id)
         {
             Categories = context.Categories.ToList();
             UserId = HttpContext.Session.GetString("userId");
             Chapters = context.Chapters.Where(x => x.BookId == id).ToList();
+            user = context.Users.FirstOrDefault(x => x.UserId == int.Parse(UserId));
+
             foreach (var chapter in Chapters)
             {
                 if(chapter.Contents1 !=null && chapter.Contents2 != null)

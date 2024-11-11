@@ -17,14 +17,19 @@ namespace WebApp.Pages.Profile
         public string? UserId { get; set; } = default!;
         [BindProperty]
         public BusinessObject.Models.Book Book { get; set; } = default!;
+        public BusinessObject.Models.User user { get; set; }
+
         public void OnGet()
         {
             Categories = context.Categories.ToList();
             UserId = HttpContext.Session.GetString("userId");
+            user = context.Users.FirstOrDefault(x => x.UserId == int.Parse(UserId));
 
         }
         public IActionResult OnPost()
         {
+            user = context.Users.FirstOrDefault(x => x.UserId == int.Parse(UserId));
+
             var selectedCategoryIds = Request.Form["category"].Select(int.Parse).ToList();
             var selectedCategories = context.Categories
                                            .Where(c => selectedCategoryIds.Contains(c.CateId))
