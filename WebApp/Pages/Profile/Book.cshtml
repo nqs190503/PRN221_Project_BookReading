@@ -215,6 +215,27 @@
                     </a>
                 </li>
             }
+            @{
+                if (Model.user.RoleId == 0)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" asp-page="/Profile/ViewStatistic">
+                            <i class="bi bi-envelope"></i>
+                            <span>Xem thống kê lượt đọc</span>
+                        </a>
+                    </li>
+                }
+            }@{
+                if (Model.user.RoleId == 0)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" asp-page="/Profile/ViewStatisticUserBookView">
+                            <i class="bi bi-envelope"></i>
+                            <span>Xem thống kê lượt tổng lượt đọc của người đăng</span>
+                        </a>
+                    </li>
+                }
+            }
     </aside>
     <main style="margin-top: 4px" id="main" class="main">
 
