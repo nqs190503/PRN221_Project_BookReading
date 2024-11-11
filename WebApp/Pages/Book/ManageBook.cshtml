@@ -249,6 +249,7 @@
                                     <tr>
                                         <th>Tên Truyện</th>
                                         <th>Hình Ảnh</th>
+                                        <th>Lượt xem</th>
                                         <th>Tên Tác Giả</th>
                                         <th>Tóm tắt truyện</th>
                                         <th data-type="date" data-format="YYYY/DD/MM">Ngày đăng</th>
@@ -270,6 +271,7 @@
                                                     <a asp-page="/Book/UpdateBook" asp-route-id="@book.BookId"><i class="material-icons" data-toggle="tooltip" title="Update">&#xE254;</i></a>
                                                 </td>
                                                 <td class="image"><img src="@Url.Content(book.Img)" width="100px"></td>
+                                                <td class="view">@book.Views</td>
                                                 <td class="author">@book.AuthorName</td>
                                                 <td class="detail">
                                                     <div id="detail-@book.BookId" class="truncated">@book.Detail</div>
