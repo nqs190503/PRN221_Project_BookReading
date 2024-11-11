@@ -284,20 +284,25 @@
                                             <tr>
                                                 <td class="Username">
                                                     @user.UserName <br>
-                                                    <a href="javascript:void(0);" onclick="confirmDelete(@user.UserId)"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                                    <a asp-page="/Account/UpdateAccount" asp-route-id="@user.UserId"><i class="material-icons" data-toggle="tooltip" title="Update">&#xE254;</i></a>
-                                                </td>
-                                                <td class="image"><img src="@Url.Content(user.Avatar)" width="100px"></td>
-                                                <td class="Address">@user.Address</td>
-                                                <td class="Phone">@user.Phone</td>
-                                                <td class="Email">@user.Email</td>
-                                                <td class="Role">@user.Role.RoleName</td>
-                                                <td class="Active">@(user.Active)</td>
+                                                    @{
+                                                        if (user.RoleId == 1)
+                                                        {
+                                                            <a href="javascript:void(0);" onclick="confirmDelete(@user.UserId)"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                                            <a asp-page="/Account/UpdateAccount" asp-route-id="@user.UserId"><i class="material-icons" data-toggle="tooltip" title="Update">&#xE254;</i></a>
+                                                        }
+                                                        }
+                                                    </td>
+                                                    <td class="image"><img src="@Url.Content(user.Avatar)" width="100px"></td>
+                                                    <td class="Address">@user.Address</td>
+                                                    <td class="Phone">@user.Phone</td>
+                                                    <td class="Email">@user.Email</td>
+                                                    <td class="Role">@user.Role.RoleName</td>
+                                                    <td class="Active">@(user.Active)</td>
 
-                                            </tr>
-                                        }
-                                    }
-                                    @* <script>
+                                                </tr>
+                                                    }
+                                            }
+                                                    @* <script>
                                     function toggleDetail(id) {
                                     const detailElement = document.getElementById(`detail-${id}`);
                                     const button = document.getElementById(`toggle-btn-${id}`);
@@ -311,36 +316,36 @@
                                     }
                                     }
                                     </script> *@
-                                    <script>
-                                        function confirmDelete(UserId) {
-                                        if (confirm("Bạn có muốn thay đổi trạng thái active của người dùng này ?")) {
-                                        // Nếu người dùng đồng ý xóa, chuyển hướng đến trang xóa với id của sách
-                                        window.location.href = "DeleteAccount?id=" + UserId;
-                                        }
-                                        }
-                                    </script>
-                                </tbody>
-                            </table>
+                                            <script>
+                                                function confirmDelete(UserId) {
+                                                    if (confirm("Bạn có muốn thay đổi trạng thái active của người dùng này ?")) {
+                                                        // Nếu người dùng đồng ý xóa, chuyển hướng đến trang xóa với id của sách
+                                                        window.location.href = "DeleteAccount?id=" + UserId;
+                                                    }
+                                                }
+                                            </script>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
+                </section>
 
 
-    </main>
+            </main>
 
-    <script src="~/css/vendor/simple-datatables/simple-datatables.js"></script>
-    <script src="~/css/vendor/tinymce/tinymce.min.js"></script>
-    <script src="~/js/main.js"></script>
-    <script src="~/css/vendor/apexcharts/apexcharts.min.js"></script>
-    <script src="~/css/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/css/vendor/chart.js/chart.umd.js"></script>
-    <script src="~/css/vendor/echarts/echarts.min.js"></script>
-    <script src="~/css/vendor/quill/quill.min.js"></script>
-    <script src="~/css/vendor/simple-datatables/simple-datatables.js"></script>
-    <script src="~/css/vendor/tinymce/tinymce.min.js"></script>
-    <script src="~/css/vendor/php-email-form/validate.js"></script>
-</body>
+            <script src="~/css/vendor/simple-datatables/simple-datatables.js"></script>
+            <script src="~/css/vendor/tinymce/tinymce.min.js"></script>
+            <script src="~/js/main.js"></script>
+            <script src="~/css/vendor/apexcharts/apexcharts.min.js"></script>
+            <script src="~/css/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="~/css/vendor/chart.js/chart.umd.js"></script>
+            <script src="~/css/vendor/echarts/echarts.min.js"></script>
+            <script src="~/css/vendor/quill/quill.min.js"></script>
+            <script src="~/css/vendor/simple-datatables/simple-datatables.js"></script>
+            <script src="~/css/vendor/tinymce/tinymce.min.js"></script>
+            <script src="~/css/vendor/php-email-form/validate.js"></script>
+        </body>
 
-</html>
+        </html>
