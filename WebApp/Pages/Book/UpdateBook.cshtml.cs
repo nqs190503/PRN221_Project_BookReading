@@ -6,9 +6,9 @@ namespace WebApp.Pages.Book
 {
     public class UpdateModel : PageModel
     {
-        private readonly PRN221_ProjectContext context;
+        private readonly PRN221_Project_1Context context;
 
-        public UpdateModel(PRN221_ProjectContext context)
+        public UpdateModel(PRN221_Project_1Context context)
         {
             this.context = context;
         }

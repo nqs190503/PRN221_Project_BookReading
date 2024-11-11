@@ -6,9 +6,9 @@ namespace WebApp.Pages.Chapter
 {
     public class AddModel : PageModel
     {
-        private readonly PRN221_ProjectContext context;
+        private readonly PRN221_Project_1Context context;
 
-        public AddModel(PRN221_ProjectContext context)
+        public AddModel(PRN221_Project_1Context context)
         {
             this.context = context;
         }

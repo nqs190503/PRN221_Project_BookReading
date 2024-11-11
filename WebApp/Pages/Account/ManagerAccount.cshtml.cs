@@ -7,9 +7,9 @@ namespace WebApp.Pages.Account
 {
     public class ManagerAccountModel : PageModel
     {
-        private readonly PRN221_ProjectContext context;
+        private readonly PRN221_Project_1Context context;
 
-        public ManagerAccountModel(PRN221_ProjectContext context)
+        public ManagerAccountModel(PRN221_Project_1Context context)
         {
             this.context = context;
         }

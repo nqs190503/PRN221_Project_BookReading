@@ -6,13 +6,13 @@ using Microsoft.Extensions.Configuration;
 
 namespace BusinessObject.Models
 {
-    public partial class PRN221_ProjectContext : DbContext
+    public partial class PRN221_Project_1Context : DbContext
     {
-        public PRN221_ProjectContext()
+        public PRN221_Project_1Context()
         {
         }
 
-        public PRN221_ProjectContext(DbContextOptions<PRN221_ProjectContext> options)
+        public PRN221_Project_1Context(DbContextOptions<PRN221_Project_1Context> options)
             : base(options)
         {
         }
@@ -22,7 +22,6 @@ namespace BusinessObject.Models
         public virtual DbSet<CategoryInBook> CategoryInBooks { get; set; } = null!;
         public virtual DbSet<Chapter> Chapters { get; set; } = null!;
         public virtual DbSet<Comment> Comments { get; set; } = null!;
-        public virtual DbSet<PayChapter> PayChapters { get; set; } = null!;
         public virtual DbSet<Rate> Rates { get; set; } = null!;
         public virtual DbSet<Reading> Readings { get; set; } = null!;
         public virtual DbSet<Report> Reports { get; set; } = null!;
@@ -100,9 +99,7 @@ namespace BusinessObject.Models
             {
                 entity.ToTable("Category_in_book");
 
-                entity.Property(e => e.Id)
-                    //.ValueGeneratedNever()
-                    .HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.BookId).HasColumnName("BookID");
 
@@ -183,35 +180,6 @@ namespace BusinessObject.Models
                     .HasConstraintName("FK_Comment_User1");
             });
 
-            modelBuilder.Entity<PayChapter>(entity =>
-            {
-                entity.HasKey(e => e.PayId);
-
-                entity.ToTable("PayChapter");
-
-                entity.Property(e => e.PayId).HasColumnName("payId");
-
-                entity.Property(e => e.ChapterId).HasColumnName("chapterId");
-
-                entity.Property(e => e.PayDate)
-                    .HasColumnType("datetime")
-                    .HasColumnName("payDate");
-
-                entity.Property(e => e.UserId).HasColumnName("userID");
-
-                entity.HasOne(d => d.Chapter)
-                    .WithMany(p => p.PayChapters)
-                    .HasForeignKey(d => d.ChapterId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PayChapter_Chapter");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.PayChapters)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PayChapter_User");
-            });
-
             modelBuilder.Entity<Rate>(entity =>
             {
                 entity.ToTable("Rate");
@@ -239,9 +207,9 @@ namespace BusinessObject.Models
 
             modelBuilder.Entity<Reading>(entity =>
             {
-                entity.HasKey(e => e.Id);
-
                 entity.ToTable("Reading");
+
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Bookid).HasColumnName("bookid");
 
@@ -254,19 +222,19 @@ namespace BusinessObject.Models
                 entity.Property(e => e.UserId).HasColumnName("userID");
 
                 entity.HasOne(d => d.Book)
-                    .WithMany()
+                    .WithMany(p => p.Readings)
                     .HasForeignKey(d => d.Bookid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Reading_Book");
 
                 entity.HasOne(d => d.Chapter)
-                    .WithMany()
+                    .WithMany(p => p.Readings)
                     .HasForeignKey(d => d.Chapterid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Reading_Chapter");
 
                 entity.HasOne(d => d.User)
-                    .WithMany()
+                    .WithMany(p => p.Readings)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Reading_User");
@@ -292,6 +260,10 @@ namespace BusinessObject.Models
                     .HasMaxLength(100)
                     .HasColumnName("replyStatus ");
 
+                entity.Property(e => e.ReportTime)
+                    .HasColumnType("datetime")
+                    .HasColumnName("reportTime");
+
                 entity.Property(e => e.UserId).HasColumnName("userID");
 
                 entity.HasOne(d => d.Book)
@@ -301,13 +273,13 @@ namespace BusinessObject.Models
                     .HasConstraintName("FK_Report_Book");
 
                 entity.HasOne(d => d.ProblemNavigation)
-                    .WithMany()
+                    .WithMany(p => p.Reports)
                     .HasForeignKey(d => d.Problem)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Report_ReportType");
 
                 entity.HasOne(d => d.User)
-                    .WithMany()
+                    .WithMany(p => p.Reports)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Report_User");
@@ -398,6 +370,8 @@ namespace BusinessObject.Models
 
                 entity.Property(e => e.UserId).HasColumnName("userID");
 
+                entity.Property(e => e.Active).HasColumnName("active");
+
                 entity.Property(e => e.Address)
                     .HasMaxLength(50)
                     .HasColumnName("address");
@@ -409,7 +383,7 @@ namespace BusinessObject.Models
                     .HasColumnName("email");
 
                 entity.Property(e => e.Password)
-                    .HasMaxLength(50)
+                    .HasMaxLength(200)
                     .HasColumnName("password");
 
                 entity.Property(e => e.Phone)
@@ -418,7 +392,7 @@ namespace BusinessObject.Models
 
                 entity.Property(e => e.RoleId).HasColumnName("roleID");
 
-                entity.Property(e => e.Active).HasColumnName("active");
+                entity.Property(e => e.Transaction).HasColumnName("transaction");
 
                 entity.Property(e => e.UserName)
                     .HasMaxLength(50)

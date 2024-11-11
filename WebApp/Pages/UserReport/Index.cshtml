@@ -86,7 +86,7 @@
                             <button style="background-color: red;margin-left:40%; color: white" class="btn btn--radius-2 btn--red" type="reset">Cancel</button>
                         </div>
                     </form>
-                     <script>
+                    @*  <script>
                         function validateForm() {
                             var detail = document.getElementById("description").value.trim();
 
@@ -99,8 +99,33 @@
                                 return true;
                             }
                         }
-                    </script> 
-                    
+                    </script>  *@
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                        @if (TempData["SuccessMessage"] != null)
+                        {
+                            <text>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Success',
+                                        text: '@TempData["SuccessMessage"]'
+                                    });
+                            </text>
+                        }
+                        else if (TempData["ErrorMessage"] != null)
+                        {
+                            <text>
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Cooldown Active',
+                                        text: '@TempData["ErrorMessage"]'
+                                    });
+                            </text>
+                        }
+                            });
+                    </script>
+
                 </div>
             </div>
         </div>
@@ -115,6 +140,7 @@
 
     <!-- Main JS-->
     <script src="js/global.js"></script>
+
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
 </html>

@@ -6,9 +6,9 @@ namespace WebApp.Pages.Chapter
 {
     public class EditChapterModel : PageModel
     {
-        private readonly PRN221_ProjectContext context;
+        private readonly PRN221_Project_1Context context;
 
-        public EditChapterModel(PRN221_ProjectContext context)
+        public EditChapterModel(PRN221_Project_1Context context)
         {
             this.context = context;
         }

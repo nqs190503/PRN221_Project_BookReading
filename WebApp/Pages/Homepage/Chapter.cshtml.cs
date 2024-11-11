@@ -6,9 +6,9 @@ namespace WebApp.Pages.Homepage
 {
     public class ChapterModel : PageModel
     {
-        private readonly PRN221_ProjectContext context;
+        private readonly PRN221_Project_1Context context;
 
-        public ChapterModel(PRN221_ProjectContext context)
+        public ChapterModel(PRN221_Project_1Context context)
         {
             this.context = context;
         }

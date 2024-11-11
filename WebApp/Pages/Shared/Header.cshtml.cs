@@ -6,9 +6,9 @@ namespace WebApp.Pages.Shared
 {
     public class HeaderModel : PageModel
     {
-        private readonly PRN221_ProjectContext context;
+        private readonly PRN221_Project_1Context context;
 
-        public HeaderModel(PRN221_ProjectContext context)
+        public HeaderModel(PRN221_Project_1Context context)
         {
             this.context = context;
         }

@@ -8,9 +8,9 @@ namespace WebApp.Pages.Login
 {
     public class LoginModel : PageModel
     {
-        private readonly PRN221_ProjectContext context;
+        private readonly PRN221_Project_1Context context;
 
-        public LoginModel(PRN221_ProjectContext context)
+        public LoginModel(PRN221_Project_1Context context)
         {
             this.context = context;
         }

@@ -11,6 +11,7 @@ namespace BusinessObject.Models
             Chapters = new HashSet<Chapter>();
             Comments = new HashSet<Comment>();
             Rates = new HashSet<Rate>();
+            Readings = new HashSet<Reading>();
             Reports = new HashSet<Report>();
         }
 
@@ -30,6 +31,7 @@ namespace BusinessObject.Models
         public virtual ICollection<Chapter> Chapters { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Rate> Rates { get; set; }
+        public virtual ICollection<Reading> Readings { get; set; }
         public virtual ICollection<Report> Reports { get; set; }
     }
 }

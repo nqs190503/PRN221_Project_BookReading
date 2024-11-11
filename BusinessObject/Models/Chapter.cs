@@ -7,7 +7,7 @@ namespace BusinessObject.Models
     {
         public Chapter()
         {
-            PayChapters = new HashSet<PayChapter>();
+            Readings = new HashSet<Reading>();
         }
 
         public int ChapterId { get; set; }
@@ -17,7 +17,8 @@ namespace BusinessObject.Models
         public string? Contents1 { get; set; }
         public string? Contents2 { get; set; }
         public string? Status { get; set; }
+
         public virtual Book Book { get; set; } = null!;
-        public virtual ICollection<PayChapter> PayChapters { get; set; }
+        public virtual ICollection<Reading> Readings { get; set; }
     }
 }

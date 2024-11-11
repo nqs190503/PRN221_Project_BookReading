@@ -7,9 +7,9 @@ namespace WebApp.Pages.Profile
 {
     public class BookModel : PageModel
     {
-        private readonly PRN221_ProjectContext context;
+        private readonly PRN221_Project_1Context context;
 
-        public BookModel(PRN221_ProjectContext context)
+        public BookModel(PRN221_Project_1Context context)
         {
             this.context = context;
         }

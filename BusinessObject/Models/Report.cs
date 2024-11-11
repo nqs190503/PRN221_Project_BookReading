@@ -17,6 +17,7 @@ namespace BusinessObject.Models
         public string? Chapter { get; set; }
         public string? Detail { get; set; }
         public string? ReplyStatus { get; set; }
+        public DateTime? ReportTime { get; set; }
 
         public virtual Book Book { get; set; } = null!;
         public virtual ReportType ProblemNavigation { get; set; } = null!;
