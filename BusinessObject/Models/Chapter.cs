@@ -5,10 +5,6 @@ namespace BusinessObject.Models
 {
     public partial class Chapter
     {
-        public Chapter()
-        {
-            PayChapters = new HashSet<PayChapter>();
-        }
 
         public int ChapterId { get; set; }
         public int BookId { get; set; }
@@ -18,6 +14,5 @@ namespace BusinessObject.Models
         public string? Contents2 { get; set; }
         public string? Status { get; set; }
         public virtual Book Book { get; set; } = null!;
-        public virtual ICollection<PayChapter> PayChapters { get; set; }
     }
 }

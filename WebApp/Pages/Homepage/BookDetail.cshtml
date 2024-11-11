@@ -175,6 +175,21 @@
                                         </svg>
                                         <span> Báo cáo</span>
                                     </a>
+                                    @{
+
+                                        if (Model.Role == 0)
+                                        {
+                                            
+                                                <a asp-page="/Admin/ManageBook" asp-route-bookId="@Model.Book.BookId" class="d-flex align-items-center mt-2">
+                                                    <span> Chỉnh sửa truyện</span>
+                                                </a>
+                                                <a asp-page="/Admin/ManageChapter" asp-route-id="@Model.Book.BookId" class="d-flex align-items-center mt-2">
+                                                    <span> Chỉnh sửa chương</span>
+                                                </a>
+                                        }
+                                    }
+                                    <br/>
+                                    <br/>
                                 </div>
                                 <div class="col-12 col-md-12 col-lg-9">
                                     <h3 class="text-center story-name">@Model.Book.Title</h3>
@@ -261,35 +276,22 @@
                                     <p class="mb-1">
                                         <strong>Tác giả:</strong>
                                         <a href="#"
-                                           class="text-decoration-none text-dark hover-title">Thâm Bích Sắc</a>
+                                           class="text-decoration-none text-dark hover-title">@Model.Book.AuthorName</a>
                                     </p>
                                     <div class="d-flex align-items-center mb-1 flex-wrap">
                                         <strong class="me-1">Thể loại:</strong>
                                         <div class="d-flex align-items-center flex-warp">
-                                            <a href="category.html"
-                                               class="text-decoration-none text-dark hover-title  me-1 "
-                                               style="width: max-content;">
-                                                Ngôn Tình ,
-                                            </a>
-
-
-                                            <a href="category.html"
-                                               class="text-decoration-none text-dark hover-title  me-1 "
-                                               style="width: max-content;">
-                                                Cổ Đại ,
-                                            </a>
-
-
-                                            <a href="category.html"
-                                               class="text-decoration-none text-dark hover-title  me-1 "
-                                               style="width: max-content;">
-                                                Ngược ,
-                                            </a>
-
-
-                                            <a href="category.html"
-                                               class="text-decoration-none text-dark hover-title "
-                                               style="width: max-content;">Khác </a>
+                                            @{
+                                                foreach(var category in Model.CategoryInBook)
+                                                {
+                                                    <a asp-page="/Homepage/Category" asp-route-id="@category.CateId"
+                                                       class="text-decoration-none text-dark hover-title  me-1 "
+                                                       style="width: max-content;">
+                                                        @category.Name ,
+                                                    </a>
+                                                }
+                                            }
+                                            
                                         </div>
                                     </div>
 

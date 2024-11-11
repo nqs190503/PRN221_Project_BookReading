@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Pages\Login.cshtml" />
-    <_ContentIncludedByDefault Remove="Pages\Login\Logout.cshtml" />
+    <!--<_ContentIncludedByDefault Remove="Pages\Login\Logout.cshtml" />-->
   </ItemGroup>
 
   <ItemGroup>
@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Login\Logout.cshtml" />
+    <!--<UpToDateCheckInput Remove="Pages\Login\Logout.cshtml" />-->
   </ItemGroup>
 
   <ItemGroup>

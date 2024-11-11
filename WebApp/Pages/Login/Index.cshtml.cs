@@ -38,6 +38,7 @@ namespace WebApp.Pages.Login
                 else
                 {
                     HttpContext.Session.SetString("userId", exist.UserId.ToString());
+                    HttpContext.Session.SetString("role", exist.RoleId.ToString());
                     return RedirectToPage("/Homepage/Index");
                 }
             }

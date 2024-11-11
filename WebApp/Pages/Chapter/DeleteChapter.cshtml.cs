@@ -13,20 +13,27 @@ namespace WebApp.Pages.Chapter
             this.context = context;
         }
 
-        public IActionResult OnGet(int id)
+        public IActionResult OnGet(int id, bool isAdminDelete)
         {
             var exist = context.Chapters.Find(id);
             if (exist != null)
             {
                 context.Chapters.Remove(exist);
                 context.SaveChanges();
-                return RedirectToPage("/Chapter/ChapterList", new { id = exist.BookId });
+                if (!isAdminDelete)
+                {
+                    return RedirectToPage("/Chapter/ChapterList", new { id = exist.BookId });
+                }
+                else
+                {
+                    return RedirectToPage("/Admin/ManageChapter", new { id = exist.BookId });
+                }
             }
             else
             {
                 return NotFound();
             }
-            
+
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿@page
-@model WebApp.Pages.Chapter.ChapterListModel
+@model WebApp.Pages.Admin.ManageBookModel
 @{
     Layout = null;
 }
@@ -8,16 +8,12 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link href="~/css/vendor/simple-datatables/style.css" rel="stylesheet">
+    <link href="~/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/css/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/css/vendor/css/style.css" rel="stylesheet">
     <style>
-        .table td {
-            width: 20%; /* Đặt chiều rộng 20% cho mỗi cột */
-        }
-
-        .detail {
-            /* Điều chỉnh kích cỡ nội dung trong cột Detail */
-            font-size: 13px;
+        label {
+            margin-right: 30px;
         }
 
         .sidebar {
@@ -37,14 +33,15 @@
         }
 
         /* .header {
-            transition: all 0.5s;
-            z-index: 997;
-            height: 0px !important;
-            box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
-            background-color: #fff;
-            padding-left: 20px;
-        } */
+                    transition: all 0.5s;
+                    z-index: 997;
+                    height: 0px !important;
+                    box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+                    background-color: #fff;
+                    padding-left: 20px;
+                } */
     </style>
+    <script src="~/js/jquery-1.11.3.min.js"></script>
     <link rel="stylesheet" href="~/css/app.css">
     <link href="~/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/css/vendor/css/style.css" rel="stylesheet">
@@ -171,10 +168,10 @@
             </div>
         </nav>
     </header>
-    <aside style="margin-top: 80px" id="sidebar" class="sidebar">
+ @*    <aside style="margin-top: 80px" id="sidebar" class="sidebar">
 
         <ul class="sidebar-nav" id="sidebar-nav">
-            
+
             <li class="nav-item">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
@@ -204,64 +201,108 @@
                     <span>Quản lý chapter</span>
                 </a>
             </li>
-        </ul>
-    </aside>
+    </aside> *@
     <main style="margin-top: 4px" id="main" class="main">
 
         <div class="pagetitle">
-            <h1>List chapter</h1>
+            <h1>Edit Book</h1>
         </div>
-        <section class="section">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
 
-                        <div class="card-body">
+        <section class="section contact">
+            <div>
+                <div class="card p-4">
+                    <form method="post" onsubmit="return validateForm()">
 
-                            <table class="table datatable">
-                                <thead>
-                                    <tr>
-                                        <th>Chương</th>
-                                        <th>Tên chương</th>
-                                        <th>Số chữ</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @{
-                                        foreach(var chap in Model.Chapters)
-                                        {   
-                                      
-                                        <tr>
-                                            <td class="listnumberchap">
-                                                @chap.NumberChapter <br>
-                                                <a asp-page="/Chapter/EditChapter" asp-route-id="@chap.ChapterId" class="btn btn-secondary btn-sm mb-1 mr-md-1">Sửa Chương</a>
-                                                <a asp-page="/Homepage/Chapter" asp-route-id="@chap.ChapterId" asp-route-bookId="@chap.BookId" class="btn btn-secondary btn-sm mb-1 mr-md-1">Xem chương</a>
-                                                <a href="javascript:void(0);" onclick="confirmDelete(@chap.ChapterId)" class="btn btn-secondary btn-sm mb-1 mr-md-1">Xóa</a>
-                                            </td>
-                                            <td class="listnamechap">@chap.ChapterName</td>
-                                            <td class="countwords">@Model.CountWords[chap.ChapterId]</td>
-                                        </tr>
+                        <div class="row gy-4">
+                            <div class="col-md-12">
+                                Title
+                                <input type="text" asp-for="@Model.Book.Title" id="title" class="form-control" required>
+                            </div>
+                            <div class="col-md-12" style="display:none">
+                                Title
+                                <input type="text" asp-for="@Model.Book.BookId" class="form-control" required>
+                            </div>
+                            <div class="col-md-12">
+                                Author
+                                <input type="text" asp-for="@Model.Book.AuthorName" id="title" class="form-control" required>
+                            </div>
+                            <div class="col-md-12">
+                                <h5>Category</h5>
+                                @{
+                                    foreach (var cate in Model.Categories)
+                                    {
+                                        if (Model.CategoriesInBook.Contains(cate.CateId))
+                                        {
+                                            <input type="checkbox" style="transform:scale(1.5); margin-left: 30px" name="category" checked value="@cate.CateId"> @cate.Name
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" style="transform:scale(1.5); margin-left: 30px" name="category" value="@cate.CateId"> @cate.Name
                                         }
                                     }
-                                    <script>
-                                        function confirmDelete(chapterId) {
-                                            if (confirm("Bạn có muốn xóa chapter này ?")) {
-                                                // Nếu người dùng đồng ý xóa, chuyển hướng đến trang xóa với id của sách
-                                                window.location.href = "DeleteChapter?id=" + chapterId + "&isAdminDelete="+false;
-                                            }
-                                        }
-                                    </script>
-                                </tbody>
-                            </table>
+                                }
+                            </div>
+                            <div class="col-md-12" style="display:none">
+                                Publish Date
+                                <input type="date" class="form-control" asp-for="@Model.Book.PublishDate" required>
+                            </div>
+                            <div class="col-md-12">
+                                Image
+                                <input type="text" asp-for="@Model.Book.Img" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-12">
+                                Detail
+                                <textarea asp-for="@Model.Book.Detail" class="form-control" id="detail" rows="6" required minlength="100" maxlength="200"></textarea>
+                                <div style="font-size: 13px">
+                                    Tóm tắt cho truyện không nên quá dài mà nên ngắn gọn, tập trung, thú vị. Phần này rất quan trọng vì nó quyết định độc giả có đọc hay không.
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="display: none">
+                                Status
+                                <input type="hidden" asp-for="@Model.Book.Status" value="Updating">
+                                <input type="text" class="form-control" value="Updating" readonly>
+                            </div>
+                            <div class="col-md-12" style="display: none">
+                                Creator
+                                <input type="hidden" asp-for="@Model.Book.UserId">
+                                <input type="text" class="form-control" value="@Model.UserId" readonly>
+                            </div>
+                            <div class="col-md-12" style="display: none">
+                                Creator
+                                <input type="hidden" asp-for="@Model.Book.Approve">
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <button type="submit" style="background-color: #4154f1; color: #fff;
+                                            padding: 10px 20px 10px 20px; border: none; border-radius: 5px">
+                                    Update
+                                </button>
+                                <button type="reset" style="background-color: #4154f1; color: #fff;
+                                            padding: 10px 20px 10px 20px; border: none; border-radius: 5px">
+                                    Cancel
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
+
+                    <script>
+                        function validateForm() {
+                            var title = document.getElementById("title").value.trim();
+                            var authorname = document.getElementById("authorname").value.trim();
+                            var detail = document.getElementById("detail").value.trim();
+
+                            if (title === "" || authorname === "" || detail === "") {
+                                alert("Please fill out all required fields.");
+                                return false;
+                            }
+
+                            return true;
+                        }
+                    </script>
                 </div>
             </div>
         </section>
-
     </main>
-    <script src="~/css/vendor/simple-datatables/simple-datatables.js"></script>
-    <script src="~/css/vendor/tinymce/tinymce.min.js"></script>
     <script src="~/js/main.js"></script>
     <script src="~/css/vendor/apexcharts/apexcharts.min.js"></script>
     <script src="~/css/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

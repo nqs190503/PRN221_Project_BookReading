@@ -199,11 +199,11 @@ namespace BusinessObject.Models
 
                 entity.Property(e => e.UserId).HasColumnName("userID");
 
-                entity.HasOne(d => d.Chapter)
-                    .WithMany(p => p.PayChapters)
-                    .HasForeignKey(d => d.ChapterId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PayChapter_Chapter");
+                //entity.HasOne(d => d.Chapter)
+                //    .WithMany(p => p.PayChapters)
+                //    .HasForeignKey(d => d.ChapterId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_PayChapter_Chapter");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.PayChapters)

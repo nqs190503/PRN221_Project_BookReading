@@ -14,10 +14,13 @@ namespace WebApp.Pages.Homepage
             this.context = context;
         }
         public List<Category> Categories { get; set; } = new List<Category>();
+
+        public List<Category> CategoryInBook { get; set; } = new List<Category>();
         public string? UserId { get; set; } = default!;
         public BusinessObject.Models.Book Book { get; set; } = default!;
         public int BookId { get; set; }
 
+        public int Role { get; set; } = -1;
         public IActionResult OnGet(int id)
         {
             BookId = id;
@@ -28,6 +31,11 @@ namespace WebApp.Pages.Homepage
             
             var rateList = context.Rates.Where(x => x.BookId == id).Select(x => x.Point).ToList();
             ViewData["RateTime"] = rateList.Count;
+            var role = HttpContext.Session.GetString("role");
+            if (role != null)
+            {
+                Role = int.Parse(role);
+            }
             var ratePoint = 0;
             foreach (var rate in rateList)
             {
@@ -39,12 +47,7 @@ namespace WebApp.Pages.Homepage
             }
             if (exist != null)
             {
-                //if (exist.Img != null && exist.Img.Contains("/images"))
-                //{
-                //    //Img= "~" + exist.Img.Substring(1);
-                //    exist.Img = "~" + exist.Img.Substring(1);
-
-                //}
+                CategoryInBook = context.CategoryInBooks.Where(x=>x.BookId == exist.BookId).Select(x=>x.Cate).ToList();
                 Book = exist;
                 return Page();
             }
