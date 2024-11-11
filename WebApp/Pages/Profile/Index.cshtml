@@ -198,6 +198,17 @@
                     <span>Danh sách truyện</span>
                 </a>
             </li>
+            @{
+                if(Model.UserModel.RoleId == 0)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" asp-page="/Profile/ViewStatistic">
+                            <i class="bi bi-envelope"></i>
+                            <span>Xem thống kê lượt đọc</span>
+                        </a>
+                    </li>
+                }
+            }
             <li class="nav-item">
                 <a class="nav-link collapsed" asp-page="/Book/ManageChapter">
                     <i class="bi bi-envelope"></i>
@@ -409,7 +420,6 @@
                 </div>
             </div>
         </section>
-
     </main><!-- End #main -->
     @*   <div id="footer" class="footer border-top pt-2">
     <div class="container">
