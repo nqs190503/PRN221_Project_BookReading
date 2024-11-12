@@ -79,7 +79,7 @@ namespace WebApp.Pages.UserReport
                 context.SaveChanges();
 
                 TempData["SuccessMessage"] = "Feedback sent successfully!";
-                return RedirectToPage("/UserReport/Index", new { Id = bookId} );
+                return RedirectToPage("/UserReport/Index", new { bookId} );
 
             }
             else
